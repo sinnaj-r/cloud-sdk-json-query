@@ -2,8 +2,8 @@ import {
   Constructable,
   GetAllRequestBuilderV4,
   GetByKeyRequestBuilderV4,
-} from '../../cloud-sdk-js/packages/core/dist';
-import { Entity } from '../../cloud-sdk-js/packages/core/dist/odata-v4';
+} from '@sap-cloud-sdk/core/dist';
+import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 
 export const getByKey = <T extends Entity>(
   e: Constructable<T>,

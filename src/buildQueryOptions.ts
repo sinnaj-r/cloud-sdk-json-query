@@ -17,11 +17,8 @@ import {
   StringFilterFunction,
   or,
   not,
-} from '../../cloud-sdk-js/packages/core/dist';
-import {
-  contains,
-  Entity,
-} from '../../cloud-sdk-js/packages/core/dist/odata-v4';
+} from '@sap-cloud-sdk/core/dist';
+import { contains, Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 import { last, trim } from '../../cloud-sdk-js/packages/util/dist';
 // eslint-disable-next-line import/no-cycle
 import { buildQuery } from './buildQuery';

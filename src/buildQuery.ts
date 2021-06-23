@@ -1,10 +1,10 @@
 import {
   CountRequestBuilder,
   GetAllRequestBuilderV4,
-} from '../../cloud-sdk-js/packages/core/dist';
-import { Selectable } from '../../cloud-sdk-js/packages/core/dist/odata-common';
+} from '@sap-cloud-sdk/core/dist';
+import { Selectable } from '@sap-cloud-sdk/core/dist/odata-common';
 
-import { Entity } from '../../cloud-sdk-js/packages/core/dist/odata-v4';
+import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 import type {
   QueryOptions,
   RequestType,

@@ -4,13 +4,13 @@
  * The jsonQuery function is used to transform a mongo-esk query to a Query with SAP Cloud SDK
  */
 
+import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
+import { Constructable } from '@sap-cloud-sdk/core/dist';
 import { getAll, getByKey } from './RequestBuilder';
 
 import { buildQuery } from './buildQuery';
 
 import { QueryOptions, RequestType } from './types';
-import { Entity } from '../../cloud-sdk-js/packages/core/dist/odata-v4';
-import { Constructable } from '../../cloud-sdk-js/packages/core/dist';
 
 export const createRequest = <T extends Entity>(
   entity: Constructable<T>,
