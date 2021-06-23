@@ -43,8 +43,6 @@ export const mochaHooks = {
       },
       ExampleItem2 as any,
     );
-
-    console.log('Mocks:', nock.activeMocks());
   },
 };
 // http://localhost/tsor.example/ExampleItem1(id=%2742%27)?$format=json

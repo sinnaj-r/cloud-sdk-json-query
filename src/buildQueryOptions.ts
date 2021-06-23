@@ -77,7 +77,7 @@ const isUnaryExpression = (str: string) =>
   str.match(/(^contains)|(^endswith)|(^startswith)/);
 
 const isBinaryExpression = (str: string) =>
-  str.match(/(^tolower)|(^toupper)|(^trim)|(^substring)|(^concat)|/);
+  str.match(/(^tolower)|(^toupper)|(^trim)|(^substring)|(^concat)/);
 
 const parseStringFunction = <T extends Entity>(str: string | number) => {
   // String Filter Stmnt
@@ -85,7 +85,7 @@ const parseStringFunction = <T extends Entity>(str: string | number) => {
     return str;
   }
   const match = isUnaryExpression(str) || isBinaryExpression(str);
-  if (!match || match?.[0]) {
+  if (!match || !match?.[0]) {
     return str;
   }
   const operator = match[0];
