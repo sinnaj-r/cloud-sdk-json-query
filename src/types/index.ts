@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { CountRequestBuilder } from '../../@sap-cloud-sdk/core/dist';
+import { CountRequestBuilder } from '@sap-cloud-sdk/core/dist';
 import {
   Entity,
   GetAllRequestBuilderV4,
   GetByKeyRequestBuilderV4,
-} from '../../@sap-cloud-sdk/core/dist/odata-v4';
+} from '@sap-cloud-sdk/core/dist/odata-v4';
 import { Filter } from './FilterTypes';
 
 // Select $select

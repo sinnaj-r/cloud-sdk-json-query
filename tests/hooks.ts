@@ -2,7 +2,6 @@ import { mockGetRequest } from '@sap-cloud-sdk/core/test/test-util/request-mocke
 import { ExampleItem1Data, ExampleItem2Data } from './mockItems';
 import { ExampleItem1 } from './ExampleItem1/ExampleItem1';
 import { ExampleItem2 } from './ExampleItem2/ExampleItem2';
-import nock from '../../cloud-sdk-js/node_modules/nock';
 
 const destination = {
   name: 'Testination',

@@ -56,7 +56,7 @@ const buildQueryCommon = <T extends Entity>(
     );
   }
   // TODO Fix Types
-  req = buildExpand<T>(expand, requestBuilder, req);
+  req = buildExpand<T>(expand as any, requestBuilder, req);
 
   return req;
 };
@@ -82,7 +82,7 @@ const buildQueryGetAll = <T extends Entity>(
 
 const buildQueryCount = <T extends Entity>(
   requestBuilderCount: CountRequestBuilder<T>,
-  { filter }: QueryOptionsCount<T>,
+  _: QueryOptionsCount<T>,
 ) => {
   const req = requestBuilderCount;
 

@@ -17,12 +17,13 @@ import {
   StringFilterFunction,
   or,
   not,
+  trim,
 } from '@sap-cloud-sdk/core/dist';
 import { contains, Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
-import { last, trim } from '../../cloud-sdk-js/packages/util/dist';
+
 // eslint-disable-next-line import/no-cycle
 import { buildQuery } from './buildQuery';
-import { getField } from './helpers';
+import { getField, last } from './helpers';
 import type { OrderBy, Expand, RequestTypeWithoutCount } from './types';
 import type { Filter } from './types/FilterTypes';
 import { COMPARISON_OPERATORS } from './types/OperatorTypes';
@@ -78,12 +79,13 @@ const isUnaryExpression = (str: string) =>
 const isBinaryExpression = (str: string) =>
   str.match(/(^tolower)|(^toupper)|(^trim)|(^substring)|(^concat)|/);
 
-const parseStringFunction = <T extends Entity>(str: string) => {
+const parseStringFunction = <T extends Entity>(str: string | number) => {
   // String Filter Stmnt
-  const match =
-    typeof str === 'string' &&
-    (isUnaryExpression(str) || isBinaryExpression(str));
-  if (!match?.[0]) {
+  if (typeof str !== 'string') {
+    return str;
+  }
+  const match = isUnaryExpression(str) || isBinaryExpression(str);
+  if (!match || match?.[0]) {
     return str;
   }
   const operator = match[0];

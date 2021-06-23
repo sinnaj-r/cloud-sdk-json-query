@@ -184,7 +184,7 @@
     core-js-pure "^3.15.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2":
   version "7.14.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.6.tgz#535203bc0892efc7dec60bdc27b2ecf6e409062d"
   integrity sha512-/PCB2uJ7oM44tz8YhC4Z/6PeOKXp4K588f+5M3clr1M4zbqztlo0XEfJ2LEzj/FgwfgGcIdl8n7YYjTCI0BYwg==
@@ -283,16 +283,6 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
-
-"@reduxjs/toolkit@^1.5.1":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.6.0.tgz#0a17c6941c57341f8b31e982352b495ab69d5add"
-  integrity sha512-eGL50G+Vj5AG5uD0lineb6rRtbs96M8+hxbcwkHpZ8LQcmt0Bm33WyBSnj5AweLkjQ7ZP+KFRDHiLMznljRQ3A==
-  dependencies:
-    immer "^9.0.1"
-    redux "^4.1.0"
-    redux-thunk "^2.3.0"
-    reselect "^4.0.0"
 
 "@sap-cloud-sdk/analytics@^1.45.0":
   version "1.45.0"
@@ -750,14 +740,6 @@ axe-core@^4.0.2:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.2.3.tgz#2a3afc332f0031b42f602f4a3de03c211ca98f72"
   integrity sha512-pXnVMfJKSIWU2Ml4JHP7pZEPIrgBO1Fd3WGx+fPBsS+KRGhE4vxooD8XBGWbQOIVSZsVK7pUDBBkCicNu80yzQ==
-
-axios-mock-adapter@^1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/axios-mock-adapter/-/axios-mock-adapter-1.19.0.tgz#9d72e321a6c5418e1eff067aa99761a86c5188a4"
-  integrity sha512-D+0U4LNPr7WroiBDvWilzTMYPYTuZlbo6BI8YHZtj7wYQS8NkARlP9KBt8IWWHTQJ0q/8oZ0ClPBtKCCkx8cQg==
-  dependencies:
-    fast-deep-equal "^3.1.3"
-    is-buffer "^2.0.3"
 
 axios@^0.21.1:
   version "0.21.1"
@@ -1987,11 +1969,6 @@ ignore@^5.1.4, ignore@^5.1.8:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
   integrity sha512-BMpfD7PpiETpBl/A6S498BaIJ6Y/ABT93ETbby2fP00v4EbvPBXWEoaR1UBPKs3iR53pJY7EtZk5KACI57i1Uw==
 
-immer@^9.0.1, immer@^9.0.2:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
-  integrity sha512-mONgeNSMuyjIe0lkQPa9YhdmTv8P19IeHV0biYhcXhbd5dhdB9HSK93zBpyKjp6wersSUgT5QyU0skmejUVP2A==
-
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.3.0.tgz#37162c25fcb9ebaa2e6e53d5b4d88ce17d9e0c2b"
@@ -2081,11 +2058,6 @@ is-boolean-object@^1.1.0:
   integrity sha512-bXdQWkECBUIAcCkeH1unwJLIpZYaa5VvuygSyS/c2lf719mTKZDU5UdDRlpd01UjADgmW8RfqaP+mRaVPdr/Ng==
   dependencies:
     call-bind "^1.0.2"
-
-is-buffer@^2.0.3:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.5.tgz#ebc252e400d22ff8d77fa09888821a24a658c191"
-  integrity sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==
 
 is-callable@^1.1.4, is-callable@^1.2.3:
   version "1.2.3"
@@ -3268,23 +3240,6 @@ readdirp@~3.5.0:
   dependencies:
     picomatch "^2.2.1"
 
-redux-persist@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
-  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
-
-redux-thunk@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
-  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
-
-redux@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.0.tgz#eb049679f2f523c379f1aff345c8612f294c88d4"
-  integrity sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g==
-  dependencies:
-    "@babel/runtime" "^7.9.2"
-
 regenerator-runtime@^0.13.4:
   version "0.13.7"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
@@ -3329,11 +3284,6 @@ require-package-name@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/require-package-name/-/require-package-name-2.0.1.tgz#c11e97276b65b8e2923f75dabf5fb2ef0c3841b9"
   integrity sha1-wR6XJ2tluOKSP3Xav1+y7ww4Qbk=
-
-reselect@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
-  integrity sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==
 
 resolve-from@^4.0.0:
   version "4.0.0"
