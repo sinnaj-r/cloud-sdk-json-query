@@ -18,13 +18,19 @@ import {
   or,
   not,
   trim,
+  CountRequestBuilder,
 } from '@sap-cloud-sdk/core/dist';
 import { contains, Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 
 // eslint-disable-next-line import/no-cycle
 import { buildQuery } from './buildQuery';
 import { getField, last } from './helpers';
-import type { OrderBy, Expand, RequestTypeWithoutCount } from './types';
+import type {
+  OrderBy,
+  Expand,
+  RequestTypeWithoutCount,
+  QueryOptionsCount,
+} from './types';
 import type { Filter } from './types/FilterTypes';
 import { COMPARISON_OPERATORS } from './types/OperatorTypes';
 
@@ -250,7 +256,7 @@ export const buildExpand = <T extends Entity>(
     const expands: Expandable<T>[] = [];
 
     // TODO Fix Dep Cycle for Expand
-
+    // TODO Add support for expand without array
     for (const exp of expand) {
       if (typeof exp !== 'object') {
         expands.push(getField(requestBuilder, exp) as Expandable<T>);
@@ -268,5 +274,17 @@ export const buildExpand = <T extends Entity>(
 
     return req.expand(...expands);
   }
+  return req;
+};
+
+export const buildQueryCount = <T extends Entity>(
+  requestBuilderCount: CountRequestBuilder<T>,
+  _: QueryOptionsCount<T>,
+) => {
+  const req = requestBuilderCount;
+
+  // TODO: Filter is not supported ?
+  // req = buildFilter<T, typeof req>(filter, req);
+
   return req;
 };

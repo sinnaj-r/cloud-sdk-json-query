@@ -20,6 +20,7 @@ import {
   buildOrderBy,
   buildFilter,
   buildExpand,
+  buildQueryCount,
 } from './buildQueryOptions';
 import { getField } from './helpers';
 
@@ -76,18 +77,6 @@ const buildQueryGetAll = <T extends Entity>(
   req = buildOrderBy<T>(orderBy, req);
 
   req = buildFilter<T, typeof req>(filter, req);
-
-  return req;
-};
-
-const buildQueryCount = <T extends Entity>(
-  requestBuilderCount: CountRequestBuilder<T>,
-  _: QueryOptionsCount<T>,
-) => {
-  const req = requestBuilderCount;
-
-  // TODO: Filter is not supported ?
-  // req = buildFilter<T, typeof req>(filter, req);
 
   return req;
 };

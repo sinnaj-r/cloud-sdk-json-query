@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { expect } from 'chai';
 import { Filter } from '../src/types/FilterTypes';
 import { ExampleItem1 } from './ExampleItem1/ExampleItem1';
@@ -68,9 +69,129 @@ describe('JSON Query Filter', () => {
     const result = '$filter=((not (num1 eq 1)))';
     expect(getQueryForRequest({ filter })).to.include(result);
   });
+  it('supports nested properties', () => {
+    // TODO Add Nested Type to EDMX
+    const filter = { SomeProp: { Value: 1 } } as any;
+    const result = '$filter=(SomeProp/Value eq 1)';
+    expect(getQueryForRequest({ filter })).to.include(result);
+  });
   // TODO Test OR
   // TODO Test Collection Operators
   // TODO Test Types
 });
 
-describe('JSON Query Expand', () => {});
+describe('JSON Query Expand', () => {
+  describe('expand', () => {
+    it('should support basic expansion', () => {
+      const expand: ['items'] = ['items'];
+      const result = '$expand=items';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should support multiple expands as an array', () => {
+      const expand: ['items', 'items2'] = ['items', 'items2'];
+      const result = '$expand=items,items2';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    // TODO
+    /* it('should allow nested expands with object', () => {
+      // TODO Fix Type
+      const expand = [{ items: { expand: 'parent' } }] as any;
+      const result = '$expand=items($expand=parent)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    }); */
+
+    // TODO
+    /*
+    it('should allow multiple expands with objects', () => {
+      const expand = { items: {}, items2: { orderBy: 'num1' } } as any;
+      const result = '$expand=items,items2($orderby=num1)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow multiple nested expands with objects', () => {
+      const expand = [
+        { Friends: { expand: 'Photos' } },
+        { One: { expand: 'Two' } },
+      ] as any;
+      const result = '$expand=Friends($expand=Photos),One($expand=Two)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow multiple expands mixing objects and strings', () => {
+      const expand = [{ Friends: { expand: 'Photos' } }, 'Foo'] as any;
+      const result = '$expand=Friends($expand=Photos),Foo)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with select', () => {
+      const expand = { Friends: { select: 'Name' } } as any;
+      const result = '$expand=Friends($select=Name)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with top', () => {
+      const expand = { Friends: { top: 10 } } as any;
+      const result = '$expand=Friends($top=10)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with count', () => {
+      const expand = { Friends: { count: true } } as any;
+      const result = '$expand=Friends($count=true)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with select and top', () => {
+      const expand = { Friends: { select: 'Name', top: 10 } } as any;
+      const result = '$expand=Friends($select=Name;$top=10)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with select as array and top', () => {
+      const expand = { Friends: { select: ['Name', 'Age'], top: 10 } } as any;
+      const result = '$expand=Friends($select=Name,Age;$top=10)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with filter', () => {
+      const expand = { Trips: { filter: { Name: 'Trip in US' } } } as any;
+      const result = "?$expand=Trips($filter=Name eq 'Trip in US')";
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+
+    it('should allow expand with orderby', () => {
+      const expand = { Products: { orderBy: 'ReleaseDate asc' } } as any;
+      const result = '$expand=Products($orderby=ReleaseDate asc)';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
+    */
+  });
+});
+
+describe('JSON Query Basics', () => {
+  it('can use select', () => {
+    // TODO Fix Types
+    const select = ['num1' as const, 'num2' as const];
+    const result = '$select=num1,num2';
+
+    expect(getQueryForRequest({ select })).to.include(result);
+  });
+  it('can use order by', () => {
+    const orderBy: [['num1', 'desc'], 'num2'] = [['num1', 'desc'], 'num2'];
+    const result = '$orderby=num1 desc,num2';
+
+    expect(getQueryForRequest({ orderBy })).to.include(result);
+  });
+  it('can use skip & top', () => {
+    const skip = 5;
+    const top = 10;
+    const result = '$top=10&$skip=5';
+
+    expect(getQueryForRequest({ skip, top })).to.include(result);
+  });
+  // TODOs
+  it('can use search');
+  it('can use count');
+});

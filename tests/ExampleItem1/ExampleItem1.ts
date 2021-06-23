@@ -14,15 +14,20 @@ import {
   EntityV4,
   Field,
   NumberField,
+  OneToManyLink,
   StringField,
 } from '@sap-cloud-sdk/core';
+// eslint-disable-next-line import/no-cycle
 import { ExampleItem1RequestBuilder } from './ExampleItem1RequestBuilder';
+import { ExampleItem2Type, ExampleItem2 } from '../ExampleItem2/ExampleItem2';
 
 export interface ExampleItem1Type {
   id: string;
   description?: string | null;
   num1?: number | null;
   num2?: number | null;
+  items: ExampleItem2Type[];
+  items2: ExampleItem2Type[];
 }
 
 /**
@@ -32,12 +37,12 @@ export class ExampleItem1 extends EntityV4 implements ExampleItem1Type {
   /**
    * Technical entity name for ExampleItem1.
    */
-  static _entityName = 'ExampleItem1' as const;
+  static _entityName = 'ExampleItem1';
 
   /**
    * Default url path for the according service.
    */
-  static _defaultServicePath = '/tsor.example';
+  static _defaultServicePath = 'VALUE_IS_UNDEFINED';
 
   /**
    * Id.
@@ -61,6 +66,16 @@ export class ExampleItem1 extends EntityV4 implements ExampleItem1Type {
    * @nullable
    */
   num2?: number;
+
+  /**
+   * One-to-many navigation property to the [[ExampleItem2]] entity.
+   */
+  items!: ExampleItem2[];
+
+  /**
+   * One-to-many navigation property to the [[ExampleItem2]] entity.
+   */
+  items2!: ExampleItem2[];
 
   /**
    * Returns an entity builder to construct instances of `ExampleItem1`.
@@ -134,15 +149,31 @@ export namespace ExampleItem1 {
     'Edm.Int32',
   );
   /**
+   * Static representation of the one-to-many navigation property [[items]] for query construction.
+   * Use to reference this property in query operations such as 'select' in the fluent request API.
+   */
+  export const ITEMS: OneToManyLink<ExampleItem1, ExampleItem2> =
+    new OneToManyLink('items', ExampleItem1, ExampleItem2);
+  /**
+   * Static representation of the one-to-many navigation property [[items2]] for query construction.
+   * Use to reference this property in query operations such as 'select' in the fluent request API.
+   */
+  export const ITEMS_2: OneToManyLink<ExampleItem1, ExampleItem2> =
+    new OneToManyLink('items2', ExampleItem1, ExampleItem2);
+  /**
    * All fields of the ExampleItem1 entity.
    */
   export const _allFields: Array<
-    StringField<ExampleItem1> | NumberField<ExampleItem1>
+    | StringField<ExampleItem1>
+    | NumberField<ExampleItem1>
+    | OneToManyLink<ExampleItem1, ExampleItem2>
   > = [
     ExampleItem1.ID,
     ExampleItem1.DESCRIPTION,
     ExampleItem1.NUM_1,
     ExampleItem1.NUM_2,
+    ExampleItem1.ITEMS,
+    ExampleItem1.ITEMS_2,
   ];
   /**
    * All fields selector.
@@ -158,16 +189,15 @@ export namespace ExampleItem1 {
   /**
    * Mapping of all key field names to the respective static field property ExampleItem1.
    */
-  export const _keys: {
-    [keys: string]: Field<ExampleItem1>;
-  } = ExampleItem1._keyFields.reduce(
-    (
-      acc: { [keys: string]: Field<ExampleItem1> },
-      field: Field<ExampleItem1>,
-    ) => {
-      acc[field._fieldName] = field;
-      return acc;
-    },
-    {},
-  );
+  export const _keys: { [keys: string]: Field<ExampleItem1> } =
+    ExampleItem1._keyFields.reduce(
+      (
+        acc: { [keys: string]: Field<ExampleItem1> },
+        field: Field<ExampleItem1>,
+      ) => {
+        acc[field._fieldName] = field;
+        return acc;
+      },
+      {},
+    );
 }
