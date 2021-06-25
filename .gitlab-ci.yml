@@ -58,8 +58,6 @@ test-lint:
 publish:
   stage: release
   image: node:14
-  dependencies: []
-  needs: []
   script:
     - yarn run semantic-release
   rules:
