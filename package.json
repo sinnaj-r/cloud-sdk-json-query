@@ -1,6 +1,6 @@
 {
   "name": "@epicbp2020/cloud-sdk-json-query",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Use MongoDB-like JSON Queries to query create ODATA Requests with the SAP Cloud SDK for JS",
   "main": "index.ts",
   "author": "Jannis Rosenbaum",
