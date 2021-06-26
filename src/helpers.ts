@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { AllFields, RequestBuilder } from '@sap-cloud-sdk/core/dist';
 import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
-import { pascalCase } from '@sap-cloud-sdk/util/dist';
+import { camelCase } from '@sap-cloud-sdk/util/dist';
 
 export const getField = <T extends Entity>(
   requestBuilder: RequestBuilder<T>,
@@ -11,7 +11,7 @@ export const getField = <T extends Entity>(
     return new AllFields('*', requestBuilder._entityConstructor);
   }
   return requestBuilder._entityConstructor._allFields.find(
-    (f) => f && f._fieldName === pascalCase(field as string),
+    (f) => f && camelCase(f._fieldName) === (field as string),
   )!;
 };
 export const last = <T>(arr: T[]): T | null =>

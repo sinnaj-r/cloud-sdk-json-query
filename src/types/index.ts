@@ -46,7 +46,7 @@ export type QueryOptionsGetAll<T> = Partial<ExpandOptions<T>> & {
 export type QueryOptionsGetById<T> = {
   select?: Select<T>;
   expand?: Expand<T>;
-  key: string;
+  key?: string;
 };
 
 export type QueryOptionsCount<T> = {

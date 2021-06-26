@@ -1,7 +1,10 @@
 /* eslint-disable max-lines */
 import { expect } from 'chai';
+import { createRequest } from '../src/createRequest';
+import { QueryOptions } from '../src/types';
 import { Filter } from '../src/types/FilterTypes';
 import { ExampleItem1 } from './ExampleItem1/ExampleItem1';
+import { GlAccountLineItem } from './GlAccountLineItem';
 
 import { getQueryForRequest } from './helper';
 
@@ -93,6 +96,21 @@ describe('JSON Query Expand', () => {
       const result = '$expand=items,items2';
       expect(getQueryForRequest({ expand })).to.include(result);
     });
+    it('should use correct field Names for non camel-case apis', () => {
+      const query = {
+        select: ['soldProduct', 'amountInCompanyCodeCurrency'],
+      } as QueryOptions<GlAccountLineItem>;
+      const queryStr = createRequest<GlAccountLineItem>(
+        GlAccountLineItem,
+        query,
+      )
+        .build()
+        .query();
+
+      expect(queryStr).to.include(
+        '$select=SoldProduct,AmountInCompanyCodeCurrency',
+      );
+    });
 
     // TODO
     /* it('should allow nested expands with object', () => {
@@ -102,7 +120,7 @@ describe('JSON Query Expand', () => {
       expect(getQueryForRequest({ expand })).to.include(result);
     }); */
 
-    // TODO
+    // TODO Advanced Expands
     /*
     it('should allow multiple expands with objects', () => {
       const expand = { items: {}, items2: { orderBy: 'num1' } } as any;

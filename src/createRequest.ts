@@ -20,7 +20,7 @@ export const createRequest = <T extends Entity>(
 
   // Is this a GetByKey Request
   if ('key' in query) {
-    req = getByKey<T>(entity, query.key);
+    req = getByKey<T>(entity, query.key!);
   } else if ('count' in query) {
     req = getAll<T>(entity).count();
   } else {
