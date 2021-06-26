@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { AllFields, RequestBuilder } from '@sap-cloud-sdk/core/dist';
 import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
-import { pascalCase } from '../../cloud-sdk-js/packages/util/dist';
+import { pascalCase } from '@sap-cloud-sdk/util/dist';
 
 export const getField = <T extends Entity>(
   requestBuilder: RequestBuilder<T>,
