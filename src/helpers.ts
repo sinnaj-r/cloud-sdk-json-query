@@ -16,3 +16,11 @@ export const getField = <T extends Entity>(
 };
 export const last = <T>(arr: T[]): T | null =>
   arr.length > 0 ? arr[arr.length - 1] : null;
+
+export const getFieldName = <T extends Entity, B extends RequestBuilder<T>>(
+  fieldName: keyof T,
+  req: B,
+) => {
+  const field = getField(req, fieldName);
+  return field?._fieldName ?? fieldName;
+};

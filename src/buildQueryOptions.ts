@@ -24,7 +24,7 @@ import { contains, Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 
 // eslint-disable-next-line import/no-cycle
 import { buildQuery } from './buildQuery';
-import { getField, last } from './helpers';
+import { getField, getFieldName, last } from './helpers';
 import type {
   OrderBy,
   Expand,
@@ -85,14 +85,21 @@ const isUnaryExpression = (str: string) =>
 const isBinaryExpression = (str: string) =>
   str.match(/(^tolower)|(^toupper)|(^trim)|(^substring)|(^concat)/);
 
-const parseStringFunction = <T extends Entity>(str: string | number) => {
+const parseStringFunction = <
+  T extends Entity,
+  B extends GetAllRequestBuilderV4<T>,
+>(
+  str: string | number,
+  req: B,
+) => {
   // String Filter Stmnt
   if (typeof str !== 'string') {
     return str;
   }
   const match = isUnaryExpression(str) || isBinaryExpression(str);
+  // Just a Field Name
   if (!match || !match?.[0]) {
-    return str;
+    return getFieldName(str as keyof T, req);
   }
   const operator = match[0];
   const args: (string | StringFilterFunction<T>)[] = str
@@ -101,7 +108,8 @@ const parseStringFunction = <T extends Entity>(str: string | number) => {
     .split(',')
     .map((elm) => JSON.parse(elm))
     .map(
-      (elm) => parseStringFunction<T>(elm) as StringFilterFunction<T> | string,
+      (elm) =>
+        parseStringFunction(elm, req) as StringFilterFunction<T> | string,
     );
 
   switch (operator) {
@@ -126,25 +134,30 @@ const parseStringFunction = <T extends Entity>(str: string | number) => {
   }
 };
 
-const createFilter = <T extends Entity>(
+const createFilter = <T extends Entity, B extends GetAllRequestBuilderV4<T>>(
   path: (string | number)[] = [],
   operator: typeof COMPARISON_OPERATORS[number],
   value: any,
   ignoreNKeys: number[] = [],
+  req: B,
 ) =>
   new SDKFilter<T, string>(
     path
       .filter((_, i) => !ignoreNKeys.includes(i))
-      .map(parseStringFunction)
+      .map((str) => parseStringFunction(str, req))
       .join('/'),
     operator,
-    parseStringFunction(value) as any,
+    parseStringFunction(value, req) as any,
   );
 
-const parseFilterValue = <T extends Entity>(
+const parseFilterValue = <
+  T extends Entity,
+  B extends GetAllRequestBuilderV4<T>,
+>(
   filter: Filter<T>,
   path: (string | number)[],
   ignoreNKeys: number[] = [],
+  req: B,
 ): SDKFilter<T, any>[] => {
   const lastKey = last(path);
   const value = op.get(filter as any, path);
@@ -160,6 +173,7 @@ const parseFilterValue = <T extends Entity>(
             filter,
             [...path, i],
             [...ignoreNKeys, path.length - 1, path.length],
+            req,
           ),
         );
       }
@@ -187,6 +201,7 @@ const parseFilterValue = <T extends Entity>(
           filter,
           [...path, key],
           [...ignoreNKeys, path.length - 1],
+          req,
         ),
       );
     }
@@ -197,7 +212,9 @@ const parseFilterValue = <T extends Entity>(
   if (typeof value === 'object') {
     const filters: SDKFilter<T, any>[] = [];
     for (const key of Object.keys(value)) {
-      filters.push(...parseFilterValue(filter, [...path, key], ignoreNKeys));
+      filters.push(
+        ...parseFilterValue(filter, [...path, key], ignoreNKeys, req),
+      );
     }
     return filters;
   }
@@ -212,23 +229,27 @@ const parseFilterValue = <T extends Entity>(
           lastKey as typeof COMPARISON_OPERATORS[number],
           value,
           ignoreNKeys,
+          req,
         ),
       ];
     }
   }
   // String Expr
   if (typeof value === 'string' && isUnaryExpression(value)) {
-    return [parseStringFunction(value) as any];
+    return [parseStringFunction(value, req) as any];
   }
 
-  return [createFilter(path, 'eq', value, ignoreNKeys)];
+  return [createFilter(path, 'eq', value, ignoreNKeys, req)];
 };
 
 // | FilterStatements<T, Extract<keyof T, string>>
 // | (NormalFilter<T> & StringFilter<T> & LogicFilter<T>);
-const parseFilterKey = (filter: Filter<any>) => {
+const parseFilterKey = <T extends Entity, B extends GetAllRequestBuilderV4<T>>(
+  filter: Filter<any>,
+  req: B,
+) => {
   const generatedFilters: any[] = [];
-  generatedFilters.push(...parseFilterValue(filter, []));
+  generatedFilters.push(...parseFilterValue(filter, [], undefined, req));
 
   return generatedFilters;
 };
@@ -241,7 +262,7 @@ export const buildFilter = <
   req: B,
 ): B => {
   if (filter) {
-    const filterArr = parseFilterKey(filter);
+    const filterArr = parseFilterKey(filter, req);
     return req.filter(...filterArr);
   }
   return req;

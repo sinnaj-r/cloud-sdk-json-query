@@ -111,6 +111,24 @@ describe('JSON Query Expand', () => {
         '$select=SoldProduct,AmountInCompanyCodeCurrency',
       );
     });
+    it('should use correct case for filters', () => {
+      const query = {
+        filter: [
+          { glAccount: '0000800104' },
+          { amountInCompanyCodeCurrency: { lt: 0 as any } },
+        ],
+      } as QueryOptions<GlAccountLineItem>;
+      const queryStr = createRequest<GlAccountLineItem>(
+        GlAccountLineItem,
+        query,
+      )
+        .build()
+        .query();
+
+      expect(decodeURIComponent(queryStr)).to.include(
+        "$filter=((GLAccount eq '0000800104' and AmountInCompanyCodeCurrency lt 0))",
+      );
+    });
 
     // TODO
     /* it('should allow nested expands with object', () => {

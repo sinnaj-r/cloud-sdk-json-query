@@ -7,11 +7,11 @@
   "license": "All Rights Reserved",
   "private": false,
   "scripts": {
-    "test": "env TS_NODE_PROJECT='tests/tsconfig.json' mocha -r ts-node/register --require tests/hooks.ts tests/**/*.test.ts",
+    "test": "env TS_NODE_TRANSPILE_ONLY=true TS_NODE_PROJECT='tests/tsconfig.json' mocha -r ts-node/register --require tests/hooks.ts tests/**/*.test.ts",
     "coverage": "nyc yarn test",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
     "lint:all": "yarn lint:strict && yarn lint:ts && yarn lint:depcheck ",
-    "lint:ts": "tsc --noEmit",
+    "lint:ts": "tsc --noEmit && env TS_NODE_PROJECT='tests/tsconfig.json' tsc --noEmit",
     "lint:ts-watch": "tsc -w --noEmit",
     "lint:watch": "esw -w --changed --ext .js,.jsx,.ts,.tsx src --color",
     "lint:depcheck": "depcheck --config=./.depcheckrc .",
