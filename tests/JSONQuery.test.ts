@@ -130,13 +130,12 @@ describe('JSON Query Expand', () => {
       );
     });
 
-    // TODO
-    /* it('should allow nested expands with object', () => {
+    it('should allow nested expands with object', () => {
       // TODO Fix Type
-      const expand = [{ items: { expand: 'parent' } }] as any;
+      const expand = [{ items: { expand: ['parent'] } }];
       const result = '$expand=items($expand=parent)';
       expect(getQueryForRequest({ expand })).to.include(result);
-    }); */
+    });
 
     // TODO Advanced Expands
     /*

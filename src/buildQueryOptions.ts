@@ -284,11 +284,12 @@ export const buildExpand = <T extends Entity>(
       } else {
         for (const key of Object.keys(exp)) {
           const field = getField(requestBuilder, key as keyof typeof exp);
-          const result = buildQuery(
+          const subfield = buildQuery(
+            // eslint-disable-next-line no-underscore-dangle
             field as any,
             exp[key as keyof typeof exp] as any,
           );
-          expands.push(result as any);
+          expands.push(subfield as any);
         }
       }
     }

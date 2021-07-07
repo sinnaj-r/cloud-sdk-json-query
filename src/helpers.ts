@@ -1,16 +1,24 @@
 /* eslint-disable no-underscore-dangle */
-import { AllFields, RequestBuilder } from '@sap-cloud-sdk/core/dist';
+import { AllFields, Link, RequestBuilder } from '@sap-cloud-sdk/core/dist';
 import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 import { camelCase } from '@sap-cloud-sdk/util/dist';
 
 export const getField = <T extends Entity>(
-  requestBuilder: RequestBuilder<T>,
+  source: RequestBuilder<T> | Link<T>,
   field: keyof T | '*',
 ) => {
-  if (field === '*') {
-    return new AllFields('*', requestBuilder._entityConstructor);
+  // TODO Type
+  let constructor: any;
+  if (source instanceof Link) {
+    constructor = source._linkedEntity;
+  } else {
+    constructor = source._entityConstructor;
   }
-  return requestBuilder._entityConstructor._allFields.find(
+  if (field === '*') {
+    return new AllFields('*', constructor);
+  }
+
+  return constructor._allFields.find(
     (f) => f && camelCase(f._fieldName) === (field as string),
   )!;
 };
