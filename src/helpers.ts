@@ -1,5 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { AllFields, Link, RequestBuilder } from '@sap-cloud-sdk/core/dist';
+import {
+  AllFields,
+  Link,
+  RequestBuilder,
+  Constructable,
+} from '@sap-cloud-sdk/core/dist';
 import { Entity } from '@sap-cloud-sdk/core/dist/odata-v4';
 import { camelCase } from '@sap-cloud-sdk/util/dist';
 
@@ -7,10 +12,9 @@ export const getField = <T extends Entity>(
   source: RequestBuilder<T> | Link<T>,
   field: keyof T | '*',
 ) => {
-  // TODO Type
-  let constructor: any;
+  let constructor: Constructable<T>;
   if (source instanceof Link) {
-    constructor = source._linkedEntity;
+    constructor = source._linkedEntity as Constructable<T>;
   } else {
     constructor = source._entityConstructor;
   }
