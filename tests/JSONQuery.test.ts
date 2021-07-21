@@ -45,6 +45,23 @@ describe('JSON Query Filter', () => {
       "$filter=((num1 eq 1 and num2 eq 2 and startswith('description', 'foo')))";
     expect(getQueryForRequest({ filter })).to.include(result);
   });
+  it('can use all string functions', () => {
+    // TODO Why are there no quotes around the strings ?
+    const filter: Filter<ExampleItem1> = [
+      {
+        'toupper("description")': 'FOO',
+        'trim("description")': 'foo',
+        'substring("descripion", 2)': 'foo',
+        'concat("description","description")': 'foofoo',
+      },
+      'contains("description", "foo")',
+      'endswith("description", "foo")',
+      'startswith("description", "foo")',
+    ];
+    const result =
+      "?$format=json&$filter=((toupper('description') eq FOO and trim('description') eq foo and substring('descripion', 2) eq foo and concat('description', 'description') eq foofoo and contains('description', 'foo') and endswith('description', 'foo') and startswith('description', 'foo')))";
+    expect(getQueryForRequest({ filter })).to.include(result);
+  });
   it('can use implict "and" filters for one prop', () => {
     const filter = [{ num1: { ge: 1, le: 5 } }];
     const result = '$filter=((num1 ge 1 and num1 le 5))';
@@ -61,6 +78,18 @@ describe('JSON Query Filter', () => {
     };
     const result =
       "$filter=((num1 eq 1 and num2 eq 2 and startswith('description', 'foo')))";
+    expect(getQueryForRequest({ filter })).to.include(result);
+  });
+  it('can use explicit "or" filters', () => {
+    const filter = {
+      or: [
+        { num1: 1 },
+        { num2: 2 },
+        'startswith("description", "foo")' as const,
+      ],
+    };
+    const result =
+      "$filter=((num1 eq 1 or num2 eq 2 or startswith('description', 'foo')))";
     expect(getQueryForRequest({ filter })).to.include(result);
   });
   it('can use "not" filters', () => {
@@ -226,7 +255,16 @@ describe('JSON Query Basics', () => {
 
     expect(getQueryForRequest({ skip, top })).to.include(result);
   });
+  it('can use key', () => {
+    const result = "ExampleItem1(id='10')";
+    expect(
+      createRequest<ExampleItem1>(ExampleItem1, { key: '10' })
+        .build()
+        .relativeUrl(),
+    ).to.include(result);
+  });
   // TODOs
   it('can use search');
   it('can use count');
+  it('can use key');
 });
