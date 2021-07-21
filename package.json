@@ -21,15 +21,15 @@
     "format:check": "prettier -c --no-editorconfig --ignore-unknown --write '**/(*.js|*.ts|*.jsx|*.tsx|*.md)'",
     "format:precommit": "pretty-quick --staged --ignore-path .editorconfig",
     "build": "tsc",
-    "prepare": "yarn build",
+    "prepublishOnly": "yarn build",
     "semantic-release": "semantic-release"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@sap-cloud-sdk/core": "^1.45.0",
-    "@sap-cloud-sdk/util": "^1.46.0",
+    "@sap-cloud-sdk/core": "=1.45.0",
+    "@sap-cloud-sdk/util": "=1.46.0",
     "object-path": "^0.11.5"
   },
   "module": "index.ts",
