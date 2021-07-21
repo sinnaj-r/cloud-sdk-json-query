@@ -11,7 +11,14 @@ import { getAll, getByKey } from './RequestBuilder';
 import { buildQuery } from './buildQuery';
 
 import { QueryOptions, RequestType } from './types';
-
+/**
+ * Creates a SDK Request from an generated Entity and a JSON-Query
+ *
+ * @template T The SDK Entity Type
+ * @param {Constructable<T>} entity The Constructable of the Entity
+ * @param {QueryOptions<T>} query The JSON Query
+ * @returns A SDK Request
+ */
 export const createRequest = <T extends Entity>(
   entity: Constructable<T>,
   query: QueryOptions<T>,

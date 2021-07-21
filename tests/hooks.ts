@@ -1,6 +1,6 @@
-import { ExampleItem1Data, ExampleItem2Data } from './mockItems';
-import { ExampleItem1 } from './ExampleItem1/ExampleItem1';
-import { ExampleItem2 } from './ExampleItem2/ExampleItem2';
+import { ExampleItem1Data, ExampleItem2Data } from './mocks/mockItems';
+import { ExampleItem1 } from './mocks/ExampleItem1/ExampleItem1';
+import { ExampleItem2 } from './mocks/ExampleItem2/ExampleItem2';
 import { mockGetRequest } from './RequestMocker';
 
 const destination = {

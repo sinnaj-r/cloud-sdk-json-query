@@ -6,11 +6,10 @@ import {
   COLLECTION_OPERATORS,
 } from './OperatorTypes';
 
-// TODO Non-String Filters
-
+// TODO Non-String Functions
 export type StringFilterKeys<
   T,
-  P extends string & keyof T = Extract<keyof T, string>
+  P extends string & keyof T = Extract<keyof T, string>,
 > =
   | `tolower(${P})`
   | `toupper(${P})`
