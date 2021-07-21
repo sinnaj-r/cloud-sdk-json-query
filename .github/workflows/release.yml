@@ -16,8 +16,6 @@ jobs:
           node-version: '14.x'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - run: yarn remove @sap-cloud-sdk/core
-      - run: yarn add 'https://gitpkg.now.sh/sinnaj-r/cloud-sdk-js/packages/core?bachelor-thesis'
       - name: Run Tests
         run: yarn coverage
       - name: Upload coverage to Codecov

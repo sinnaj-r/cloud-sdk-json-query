@@ -28,14 +28,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@sap-cloud-sdk/core": "=1.45.0",
+    "@sap-cloud-sdk/core": "=1.46.0",
     "@sap-cloud-sdk/util": "=1.46.0",
     "object-path": "^0.11.5"
   },
   "module": "index.ts",
   "devDependencies": {
-    "@types/node": "^15.12.4",
-    "@types/object-path": "^0.11.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/github": "^7.2.3",
@@ -43,6 +41,8 @@
     "@types/chai": "^4.2.17",
     "@types/mocha": "^8.2.2",
     "@types/moxios": "^0.4.11",
+    "@types/node": "^15.12.4",
+    "@types/object-path": "^0.11.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "chai": "^4.3.4",
@@ -57,6 +57,7 @@
     "eslint-plugin-unused-imports": "^1.1.0",
     "eslint-watch": "^7.0.0",
     "mocha": "^8.3.2",
+    "nock": "^13.1.1",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "semantic-release": "^17.4.4",
