@@ -46,6 +46,7 @@ describe('JSON Query Filter', () => {
     // TODO Why are there no quotes around the strings ?
     const filter: Filter<ExampleItem1> = [
       {
+        'tolower("description")': 'foo',
         'toupper("description")': 'FOO',
         'trim("description")': 'foo',
         'substring("descripion", 2)': 'foo',
@@ -56,7 +57,7 @@ describe('JSON Query Filter', () => {
       'startswith("description", "foo")',
     ];
     const result =
-      "?$format=json&$filter=((toupper('description') eq FOO and trim('description') eq foo and substring('descripion', 2) eq foo and concat('description', 'description') eq foofoo and contains('description', 'foo') and endswith('description', 'foo') and startswith('description', 'foo')))";
+      "?$format=json&$filter=((tolower('description') eq foo and toupper('description') eq FOO and trim('description') eq foo and substring('descripion', 2) eq foo and concat('description', 'description') eq foofoo and contains('description', 'foo') and endswith('description', 'foo') and startswith('description', 'foo')))";
     expect(getQueryForRequest({ filter })).to.include(result);
   });
   it('can use implict "and" filters for one prop', () => {

@@ -13,6 +13,11 @@ describe('JSON Query Expand', () => {
       const result = '$expand=items';
       expect(getQueryForRequest({ expand })).to.include(result);
     });
+    it('should support basic expand all', () => {
+      const expand: ['*'] = ['*'];
+      const result = '$expand=*';
+      expect(getQueryForRequest({ expand })).to.include(result);
+    });
 
     it('should support multiple expands as an array', () => {
       const expand: ['items', 'items2'] = ['items', 'items2'];
