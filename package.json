@@ -1,6 +1,6 @@
 {
   "name": "cloud-sdk-json-query",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Use MongoDB-like JSON Queries to query create ODATA Requests with the SAP Cloud SDK for JS",
   "main": "dist/index.js",
   "author": "Jannis Rosenbaum",
